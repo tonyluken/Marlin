@@ -36,7 +36,7 @@
  * Advanced settings can be found in Configuration_adv.h
  *
  */
-#define CONFIGURATION_H_VERSION 020000
+#define CONFIGURATION_H_VERSION 020004
 
 //===========================================================================
 //============================= Getting Started =============================
@@ -671,11 +671,16 @@
  *          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'L6474', 'POWERSTEP01', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
-#define X_DRIVER_TYPE  TMC2209
-#define Y_DRIVER_TYPE  TMC2209
-#define Z_DRIVER_TYPE  TMC2209
-#define E0_DRIVER_TYPE TMC2209
-#define E1_DRIVER_TYPE TMC2209
+//#define X_DRIVER_TYPE  TMC2209
+//#define Y_DRIVER_TYPE  TMC2209
+//#define Z_DRIVER_TYPE  TMC2209
+//#define X2_DRIVER_TYPE A4988
+//#define Y2_DRIVER_TYPE A4988
+//#define Z2_DRIVER_TYPE A4988
+//#define Z3_DRIVER_TYPE A4988
+//#define Z4_DRIVER_TYPE A4988
+//#define E0_DRIVER_TYPE TMC2209
+//#define E1_DRIVER_TYPE TMC2209
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
 //#define E4_DRIVER_TYPE A4988
@@ -822,7 +827,7 @@
  *
  * Enable this option for a probe connected to the Z Min endstop pin.
  */
-//#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
 /**
  * Z_MIN_PROBE_PIN
@@ -952,10 +957,10 @@
 #define XY_PROBE_SPEED 8000
 
 // Feedrate (mm/m) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z / 5
+#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z / 2
 
 // Feedrate (mm/m) for the "accurate" probe of each point
-#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
+#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 5)
 
 /**
  * Multiple Probing
