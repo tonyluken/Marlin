@@ -851,8 +851,8 @@ void MarlinSettings::postprocess() {
       HOTEND_LOOP() {
         PIDCF_t pidcf = {
           #if DISABLED(PIDTEMP)
-            DUMMY_PID_VALUE, DUMMY_PID_VALUE, DUMMY_PID_VALUE,
-            DUMMY_PID_VALUE, DUMMY_PID_VALUE
+            NAN, NAN, NAN,
+            NAN, NAN
           #else
                          PID_PARAM(Kp, e),
             unscalePID_i(PID_PARAM(Ki, e)),
@@ -881,7 +881,7 @@ void MarlinSettings::postprocess() {
 
       const PID_t bed_pid = {
         #if DISABLED(PIDTEMPBED)
-          DUMMY_PID_VALUE, DUMMY_PID_VALUE, DUMMY_PID_VALUE
+          NAN, NAN, NAN
         #else
           // Store the unscaled PID values
           thermalManager.temp_bed.pid.Kp,
@@ -1593,8 +1593,8 @@ void MarlinSettings::postprocess() {
       {
         _FIELD_TEST(planner_leveling_active);
         #if ENABLED(AUTO_BED_LEVELING_UBL)
-          bool &planner_leveling_active = planner.leveling_active;
-          uint8_t &ubl_storage_slot = ubl.storage_slot;
+          const bool &planner_leveling_active = planner.leveling_active;
+          const uint8_t &ubl_storage_slot = ubl.storage_slot;
         #else
           bool planner_leveling_active;
           uint8_t ubl_storage_slot;
@@ -1636,7 +1636,7 @@ void MarlinSettings::postprocess() {
       {
         _FIELD_TEST(bltouch_last_written_mode);
         #if ENABLED(BLTOUCH)
-          bool &bltouch_last_written_mode = bltouch.last_written_mode;
+          const bool &bltouch_last_written_mode = bltouch.last_written_mode;
         #else
           bool bltouch_last_written_mode;
         #endif
@@ -1725,7 +1725,7 @@ void MarlinSettings::postprocess() {
           PIDCF_t pidcf;
           EEPROM_READ(pidcf);
           #if ENABLED(PIDTEMP)
-            if (!validating && pidcf.Kp != DUMMY_PID_VALUE) {
+            if (!validating && !isnan(pidcf.Kp)) {
               // Scale PID values since EEPROM values are unscaled
               PID_PARAM(Kp, e) = pidcf.Kp;
               PID_PARAM(Ki, e) = scalePID_i(pidcf.Ki);
@@ -1747,7 +1747,7 @@ void MarlinSettings::postprocess() {
       {
         _FIELD_TEST(lpq_len);
         #if ENABLED(PID_EXTRUSION_SCALING)
-          int16_t &lpq_len = thermalManager.lpq_len;
+          const int16_t &lpq_len = thermalManager.lpq_len;
         #else
           int16_t lpq_len;
         #endif
@@ -1761,7 +1761,7 @@ void MarlinSettings::postprocess() {
         PID_t pid;
         EEPROM_READ(pid);
         #if ENABLED(PIDTEMPBED)
-          if (!validating && pid.Kp != DUMMY_PID_VALUE) {
+          if (!validating && !isnan(pid.Kp)) {
             // Scale PID values since EEPROM values are unscaled
             thermalManager.temp_bed.pid.Kp = pid.Kp;
             thermalManager.temp_bed.pid.Ki = scalePID_i(pid.Ki);
@@ -1799,7 +1799,7 @@ void MarlinSettings::postprocess() {
       {
         _FIELD_TEST(recovery_enabled);
         #if ENABLED(POWER_LOSS_RECOVERY)
-          bool &recovery_enabled = recovery.enabled;
+          const bool &recovery_enabled = recovery.enabled;
         #else
           bool recovery_enabled;
         #endif
